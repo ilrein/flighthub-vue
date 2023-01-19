@@ -2,10 +2,10 @@ import { defineCustomElement } from "vue";
 
 import './assets/main.css'
 
-import ISidebar from "./components/ISidebar.ce.vue";
+import _ISidebar from "./components/ISidebar.ce.vue";
 
-export { ISidebar };
+export const ISidebar = defineCustomElement(_ISidebar);
 
 export function register() {
-  customElements.define("i-sidebar", defineCustomElement(ISidebar));
+  customElements.define("i-sidebar", defineCustomElement(_ISidebar));
 }

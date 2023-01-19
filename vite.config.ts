@@ -12,15 +12,18 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      '~': fileURLToPath(new URL('./src', import.meta.url))
+      '~': fileURLToPath(new URL('./src', import.meta.url)),
+      '@': fileURLToPath(new URL('./src', import.meta.url))
     }
   },
   build: {
     lib: {
       entry: './src/main.ts',
       name: 'flighthub-vue',
+      // formats: ['es', 'cjs', 'umd', 'iife'],
       // the proper extensions will be added
-      fileName: 'flighthub-vue'
+      fileName: 'flighthub-vue',
+      minify: false
     }
   },
   define: {
