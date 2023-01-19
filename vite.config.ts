@@ -17,18 +17,10 @@ export default defineConfig({
   },
   build: {
     lib: {
-      entry: './src/main.ts',
+      entry: './src/main.js',
       name: 'flighthub-vue',
       // the proper extensions will be added
       fileName: 'flighthub-vue'
-    }
-  },
-  rollupOptions: {
-    external: ['vue'],
-    output: {
-      globals: {
-        vue: 'Vue'
-      }
     }
   }
 })
