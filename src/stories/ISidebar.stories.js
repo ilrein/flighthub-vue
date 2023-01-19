@@ -1,4 +1,4 @@
-import ISidebar from '../components/ISidebar.vue';
+import ISidebar from '../components/ISidebar.ce.vue';
 
 export default {
   title: 'ISidebar',

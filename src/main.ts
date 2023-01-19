@@ -1,6 +1,8 @@
 import { defineCustomElement } from "vue";
 
-import ISidebar from "./components/ISidebar.vue";
+import './assets/main.css'
+
+import ISidebar from "./components/ISidebar.ce.vue";
 
 export { ISidebar };
 

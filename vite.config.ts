@@ -14,5 +14,16 @@ export default defineConfig({
     alias: {
       '~': fileURLToPath(new URL('./src', import.meta.url))
     }
+  },
+  build: {
+    lib: {
+      entry: './src/components/ISidebar.ce.vue',
+      name: 'i-sidebar',
+      // the proper extensions will be added
+      fileName: 'i-sidebar'
+    }
+  },
+  define: {
+    'process.env': process.env
   }
 })

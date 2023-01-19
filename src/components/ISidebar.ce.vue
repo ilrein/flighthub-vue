@@ -1,5 +1,5 @@
 <template>
-  <div><slot name="prefix" /> {{ displayTime }}</div>
+  <div class="p-4"><slot name="prefix" /> {{ displayTime }}</div>
 </template>
 
 <script setup lang="ts">
