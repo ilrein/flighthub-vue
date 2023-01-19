@@ -17,13 +17,18 @@ export default defineConfig({
   },
   build: {
     lib: {
-      entry: './src/components/ISidebar.ce.vue',
-      name: 'i-sidebar',
+      entry: './src/main.ts',
+      name: 'flighthub-vue',
       // the proper extensions will be added
-      fileName: 'i-sidebar'
+      fileName: 'flighthub-vue'
     }
   },
-  define: {
-    'process.env': process.env
+  rollupOptions: {
+    external: ['vue'],
+    output: {
+      globals: {
+        vue: 'Vue'
+      }
+    }
   }
 })

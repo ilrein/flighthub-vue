@@ -1,7 +1,17 @@
 {
   "name": "flighthub-vue",
-  "version": "0.0.0",
+  "version": "0.0.3",
   "private": false,
+  "type": "module",
+  "files": ["dist"],
+  "main": "dist/flighthub-vue.umd.js",
+  "module": "dist/flighthub-vue.js",
+  "exports": {
+    ".": {
+      "import": "./dist/flighthub-vue.js",
+      "require": "./dist/flighthub-vue.umd.js"
+    }
+  },
   "scripts": {
     "dev": "vite",
     "build": "run-p type-check build-only",
@@ -11,7 +21,8 @@
     "type-check": "vue-tsc --noEmit -p tsconfig.vitest.json --composite false",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "publish:lib": "npm run build; npm publish;"
   },
   "dependencies": {
     "vue": "^3.2.45"
