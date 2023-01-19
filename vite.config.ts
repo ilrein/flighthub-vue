@@ -22,5 +22,8 @@ export default defineConfig({
       // the proper extensions will be added
       fileName: 'flighthub-vue'
     }
+  },
+  define: {
+    'process.env': process.env
   }
 })
