@@ -1,6 +1,9 @@
-import { createApp } from 'vue'
-import App from './App.vue'
+import { defineCustomElement } from "vue";
 
-import './assets/main.css'
+import ISidebar from "./components/ISidebar.vue";
 
-createApp(App).mount('#app')
+export { ISidebar };
+
+export function register() {
+  customElements.define("i-sidebar", defineCustomElement(ISidebar));
+}
