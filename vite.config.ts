@@ -17,7 +17,7 @@ export default defineConfig({
   },
   build: {
     lib: {
-      entry: './src/main.js',
+      entry: './src/main.ts',
       name: 'flighthub-vue',
       // the proper extensions will be added
       fileName: 'flighthub-vue'
