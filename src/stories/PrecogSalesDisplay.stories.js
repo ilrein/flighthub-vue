@@ -1,8 +1,8 @@
-import ISidebar from '../components/ISidebar.ce.vue';
+import PrecogSalesDisplay from '../components/PrecogSalesDisplay.ce.vue';
 
 export default {
-  title: 'ISidebar',
-  component: ISidebar,
+  title: 'PrecogSalesDisplay',
+  component: PrecogSalesDisplay,
   parameters: {
     // More on Story layout: https://storybook.js.org/docs/vue/configure/story-layout
     layout: 'fullscreen',
@@ -11,10 +11,10 @@ export default {
 
 const Template = () => ({
   // Components used in your story `template` are defined in the `components` object
-  components: { ISidebar },
+  components: { PrecogSalesDisplay },
 
   // Here we define the `template`
-  template: '<i-sidebar />',
+  template: '<precog-sales-display />',
 });
 
 // More on interaction testing: https://storybook.js.org/docs/vue/writing-tests/interaction-testing

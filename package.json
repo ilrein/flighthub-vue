@@ -1,9 +1,11 @@
 {
   "name": "flighthub-vue",
-  "version": "0.0.4",
+  "version": "0.0.6",
   "private": false,
   "type": "module",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "main": "dist/flighthub-vue.umd.js",
   "module": "dist/flighthub-vue.js",
   "exports": {
@@ -20,11 +22,12 @@
     "build-only": "vite build",
     "type-check": "vue-tsc --noEmit -p tsconfig.vitest.json --composite false",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
-    "storybook": "start-storybook -p 6006",
+    "storybook": "start-storybook -p 7000",
     "build-storybook": "build-storybook",
     "publish:lib": "npm run build; npm publish;"
   },
   "dependencies": {
+    "@storybook/addon-postcss": "^2.0.0",
     "vue": "^3.2.45"
   },
   "devDependencies": {

@@ -20,11 +20,12 @@ export default defineConfig({
     lib: {
       entry: './src/main.ts',
       name: 'flighthub-vue',
-      // formats: ['es', 'cjs', 'umd', 'iife'],
       // the proper extensions will be added
       fileName: 'flighthub-vue',
-      minify: false
-    }
+    },
+    // rollupOptions: {
+    //   external: ['vue'],
+    // }
   },
   define: {
     'process.env': process.env
