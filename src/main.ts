@@ -2,7 +2,7 @@ import { defineCustomElement } from "vue";
 
 import './assets/main.css'
 
-import _PrecogSalesDisplay from "./components/PrecogSalesDisplay.ce.vue";
+import _PrecogSalesDisplay from "./features/PrecogSalesDisplay.ce.vue";
 
 export const PrecogSalesDisplay = defineCustomElement(_PrecogSalesDisplay);
 

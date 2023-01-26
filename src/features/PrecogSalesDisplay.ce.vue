@@ -1,10 +1,14 @@
 <template>
-  <div class="border border-light-50 p-8 font-bold mt-10">
-    PrecogSalesDisplay!!!
+  <div class="">
+    <FlowTabs />
+    <div class="font-bold font-poppins">
+      Available!
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import FlowTabs from '../components/FlowTabs.vue'
 </script>
 
 <style lang='postcss'>

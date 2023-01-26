@@ -1,4 +1,4 @@
-import PrecogSalesDisplay from '../components/PrecogSalesDisplay.ce.vue';
+import PrecogSalesDisplay from '../features/PrecogSalesDisplay.ce.vue';
 
 export default {
   title: 'PrecogSalesDisplay',
