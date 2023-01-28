@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="h-full border-r pr-2">
     <div class="font-bold text-4xl mb-4">
       Target
     </div>
@@ -31,19 +31,53 @@
           Shows
         </div>
         <div>
-          <!-- <select class="w-full border rounded p-2">
-            <option
-              v-for="option in props.shows"
-              :key="option.value"
-            >
-              {{ option.label }}
-            </option>
-          </select> -->
           <Multiselect v-model="shows" :multiple="true" :options="props.shows">
             <template v-slot:selection="{ values, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
           </Multiselect>
         </div>
       </div>
+
+      <div class="mt-4">
+        <div class="text-base font-bold">
+          Geo Restrictions
+        </div>
+        <div>
+          <select class="w-full border rounded p-2">
+            <option v-for="option in props.geoRestrictions" :key="option.value">
+              {{ option.label }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div class="mt-4">
+        <div class="text-base font-bold">
+          Frequency Cap
+        </div>
+        <div>
+          <div>
+            Max of <input type="number" class="border rounded" v-model="maxImpressions" /> impressions
+          </div>
+          <div class="mt-1">
+            Every <input type="number" class="border rounded" v-model="maxImpressionsTimeLimit" /> day(s)
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-4">
+        <div class="text-base font-bold">
+          Position Locked
+        </div>
+        <div>
+          <select class="w-full border rounded p-2">
+            <option selected>None selected</option>
+            <option v-for="option in props.positionLocked" :key="option.value">
+              {{ option.label }}
+            </option>
+          </select>
+        </div>
+      </div>
+
     </div>
   </div>
 </template>
@@ -118,6 +152,8 @@ const props = defineProps({
 const date = ref([new Date(), addDays(new Date(), 7)])
 
 const shows = ref()
+const maxImpressions = ref()
+const maxImpressionsTimeLimit = ref()
 
 console.log(props.maxImpressions, props);
 
