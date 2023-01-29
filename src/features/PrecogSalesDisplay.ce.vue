@@ -15,6 +15,7 @@
         />
       </div>
       <div class="col-span-4 p-4">
+        <OrderHeader />
         <PodcastOrderRow
           v-for="podcast in props.podcasts"
           :key="podcast.id"
@@ -34,6 +35,7 @@ import type { PropType } from 'vue';
 import FlowTabs from '../components/FlowTabs.vue'
 import TargetPanel from '../components/TargetPanel.vue';
 import PodcastOrderRow from '../components/PodcastOrderRow.vue';
+import OrderHeader from '../components/OrderHeader.vue';
 
 const props = defineProps({
   startDate: {
