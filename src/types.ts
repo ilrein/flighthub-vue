@@ -1,7 +1,11 @@
 export interface Podcast {
   id: string
   title: string
-  avatar: string
+  description: string
+  image: string
+  heldOrders: number
+  episodeDrops: number
+  maxImpressions: number
 }
 
 export interface DropdownOption {

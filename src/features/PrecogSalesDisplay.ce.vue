@@ -19,8 +19,9 @@
         <PodcastOrderRow
           v-for="podcast in props.podcasts"
           :key="podcast.id"
-          :title="podcast.title"
-          :avatar="podcast.avatar"
+          v-bind="podcast"
+          :start-date="props.startDate"
+          :end-date="props.endDate"
         />
       </div>
     </div>
@@ -93,24 +94,8 @@ const props = defineProps({
   },
   podcasts: {
     type: Array as PropType<Podcast[]>,
-    default: () => [
-      {
-        id: 1,
-        title: 'Podcast 1',
-        avatar: 'https://picsum.photos/200/300',
-      },
-      {
-        id: 2,
-        title: 'Podcast 2',
-        avatar: 'https://picsum.photos/200/300',
-      },
-      {
-        id: 3,
-        title: 'Podcast 3',
-        avatar: 'https://picsum.photos/200/300',
-      },
-    ],
-  }
+    default: () => [],
+  },
 })
 </script>
 

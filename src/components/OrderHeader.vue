@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-row justify-between">
+  <div class="flex flex-row justify-between mb-8 items-center">
     <div>
       Showing target conditions from {{ props.startDate }} to {{ props.endDate }}
     </div>

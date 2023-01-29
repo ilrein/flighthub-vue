@@ -154,9 +154,6 @@ const date = ref([new Date(), addDays(new Date(), 7)])
 const shows = ref()
 const maxImpressions = ref()
 const maxImpressionsTimeLimit = ref()
-
-console.log(props.maxImpressions, props);
-
 </script>
 
 <style lang="postcss">
