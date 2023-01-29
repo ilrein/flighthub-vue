@@ -15,7 +15,12 @@
         />
       </div>
       <div class="col-span-4 p-4">
-        body
+        <PodcastOrderRow
+          v-for="podcast in props.podcasts"
+          :key="podcast.id"
+          :title="podcast.title"
+          :avatar="podcast.avatar"
+        />
       </div>
     </div>
   </div>
@@ -23,9 +28,12 @@
 
 <script setup lang="ts">
 import { addDays } from 'date-fns'
+import type { Podcast } from '../types'
+import type { PropType } from 'vue';
 
 import FlowTabs from '../components/FlowTabs.vue'
 import TargetPanel from '../components/TargetPanel.vue';
+import PodcastOrderRow from '../components/PodcastOrderRow.vue';
 
 const props = defineProps({
   startDate: {
@@ -80,6 +88,26 @@ const props = defineProps({
   positionLocked: {
     type: String,
     default: null,
+  },
+  podcasts: {
+    type: Array as PropType<Podcast[]>,
+    default: () => [
+      {
+        id: 1,
+        title: 'Podcast 1',
+        avatar: 'https://picsum.photos/200/300',
+      },
+      {
+        id: 2,
+        title: 'Podcast 2',
+        avatar: 'https://picsum.photos/200/300',
+      },
+      {
+        id: 3,
+        title: 'Podcast 3',
+        avatar: 'https://picsum.photos/200/300',
+      },
+    ],
   }
 })
 </script>
