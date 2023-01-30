@@ -1,5 +1,5 @@
 <template>
-  <div class="overflow-scroll">
+  <div class="overflow-scroll mb-8">
     <div class="flex flex-row">
       <img :src="props.image" :alt="props.title" class="w-12 h-12 mr-4">
       <div class="leading-none">
@@ -13,23 +13,23 @@
       </div>
     </div>
 
-    <div class="flex flex-row w-max overflow-x-scroll mt-4">
-      <div v-for="week in weeks" :key="`${week}`" class="w-32 min-w-32 flex-1">
-        {{ format(week, 'MMM L') }}
+    <div class="flex flex-row w-max h-max overflow-x-scroll mt-4 border-l-2 border-r-2 border-black">
+      <div v-for="week in weeks" :key="`${week}`" class="w-32 min-w-32 border-r border-gray-300 h-full min-h-[140px]">
+        <div class="px-2">
+          {{ week.week }}
+        </div>
+        <div class="px-2">
+          {{ week.impressions }}
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
-import {
-  addDays,
-  addMonths,
-  nextMonday,
-  differenceInWeeks,
-  format
-} from 'date-fns';
+import type { PropType } from 'vue';
+
+import type { ImpressionWeek } from '../types'
 
 const props = defineProps({
   title: {
@@ -52,34 +52,12 @@ const props = defineProps({
     type: Number,
     default: 0,
   },
-  startDate: {
-    type: Date,
-    default: new Date(),
+  weeks: {
+    type: Array as PropType<ImpressionWeek[]>,
+    default: () => [],
   },
-  endDate: {
-    type: Date,
-    default: addMonths(new Date(), 2),
-  },
-});
-
-console.log(props);
-
-
-const weeks = computed(() => {
-  const weeks = [];
-  
-  let startingPoint = nextMonday(props.startDate);
-  const diff = differenceInWeeks(props.endDate, startingPoint);
-
-  while (weeks.length < diff) {
-    weeks.push(startingPoint);
-    startingPoint = addDays(startingPoint, 7);
-  }
-  
-  return weeks;
 });
 </script>
 
 <style lang="postcss">
-
 </style>

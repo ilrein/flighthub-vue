@@ -6,6 +6,12 @@ export interface Podcast {
   heldOrders: number
   episodeDrops: number
   maxImpressions: number
+  weeks: ImpressionWeek[]
+}
+
+export interface ImpressionWeek {
+  week: Date
+  impressions: number
 }
 
 export interface DropdownOption {

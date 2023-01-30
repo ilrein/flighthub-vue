@@ -20,8 +20,6 @@
           v-for="podcast in props.podcasts"
           :key="podcast.id"
           v-bind="podcast"
-          :start-date="props.startDate"
-          :end-date="props.endDate"
         />
       </div>
     </div>
@@ -29,7 +27,6 @@
 </template>
 
 <script setup lang="ts">
-import { addDays } from 'date-fns'
 import type { Podcast } from '../types'
 import type { PropType } from 'vue';
 
@@ -39,14 +36,6 @@ import PodcastOrderRow from '../components/PodcastOrderRow.vue';
 import OrderHeader from '../components/OrderHeader.vue';
 
 const props = defineProps({
-  startDate: {
-    type: Date,
-    default: new Date(),
-  },
-  endDate: {
-    type: Date,
-    default: addDays(new Date(), 7),
-  },
   insertionOptions: {
     type: Array,
     default: () => [{
