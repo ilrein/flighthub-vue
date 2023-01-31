@@ -30,6 +30,8 @@
 <script setup lang="ts">
 import type { Podcast } from '../types'
 import type { PropType } from 'vue';
+import 'vue-multiselect/dist/vue-multiselect.css'
+import '@vuepic/vue-datepicker/dist/main.css'
 
 import FlowTabs from '../components/FlowTabs.vue'
 import TargetPanel from '../components/TargetPanel.vue';

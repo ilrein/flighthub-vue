@@ -90,9 +90,6 @@ import Datepicker from '@vuepic/vue-datepicker';
 import { addDays } from 'date-fns'
 import Multiselect from 'vue-multiselect'
 
-import 'vue-multiselect/dist/vue-multiselect.css'
-import '@vuepic/vue-datepicker/dist/main.css'
-
 const props = defineProps({
   startDate: {
     type: Date,

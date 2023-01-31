@@ -1,6 +1,6 @@
 {
   "name": "flighthub-vue",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "private": false,
   "type": "module",
   "files": [
@@ -24,7 +24,8 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
     "storybook": "start-storybook -p 7000",
     "build-storybook": "build-storybook",
-    "publish:lib": "npm run build; npm publish;"
+    "publish:lib": "npm run build; npm publish;",
+    "publish:lib-only": "npm run build-only; npm publish;"
   },
   "dependencies": {
     "@headlessui/vue": "^1.7.7",
@@ -38,13 +39,13 @@
   "devDependencies": {
     "@babel/core": "^7.20.12",
     "@rushstack/eslint-patch": "^1.1.4",
-    "@storybook/addon-actions": "^6.5.15",
-    "@storybook/addon-essentials": "^6.5.15",
-    "@storybook/addon-interactions": "^6.5.15",
-    "@storybook/addon-links": "^6.5.15",
+    "@storybook/addon-actions": "^6.5.16",
+    "@storybook/addon-essentials": "^6.5.16",
+    "@storybook/addon-interactions": "^6.5.16",
+    "@storybook/addon-links": "^6.5.16",
     "@storybook/builder-vite": "^0.3.0",
     "@storybook/testing-library": "^0.0.13",
-    "@storybook/vue3": "^6.5.15",
+    "@storybook/vue3": "^6.5.16",
     "@types/jsdom": "^20.0.1",
     "@types/node": "^18.11.12",
     "@vitejs/plugin-vue": "^4.0.0",
