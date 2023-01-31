@@ -14,7 +14,11 @@
     </div>
 
     <div class="flex flex-row w-max h-max overflow-x-scroll mt-4 border-l-2 border-r-2 border-black">
-      <div v-for="week in weeks" :key="`${week}`" class="w-32 min-w-32 border-r border-gray-300 h-full min-h-[140px]">
+      <div
+        v-for="week in weeks"
+        :key="`${week.week}`"
+        class="w-32 min-w-32 border-r border-gray-300 h-full min-h-[140px] cursor-pointer hover:bg-blue-50 transition-colors"
+      >
         <div class="px-2">
           {{ week.week }}
         </div>

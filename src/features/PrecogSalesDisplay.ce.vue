@@ -21,6 +21,7 @@
           :key="podcast.id"
           v-bind="podcast"
         />
+        <OrderFooter @save-and-export="onSaveAndExport" />
       </div>
     </div>
   </div>
@@ -34,6 +35,7 @@ import FlowTabs from '../components/FlowTabs.vue'
 import TargetPanel from '../components/TargetPanel.vue';
 import PodcastOrderRow from '../components/PodcastOrderRow.vue';
 import OrderHeader from '../components/OrderHeader.vue';
+import OrderFooter from '../components/OrderFooter.vue';
 
 const props = defineProps({
   insertionOptions: {
@@ -86,6 +88,10 @@ const props = defineProps({
     default: () => [],
   },
 })
+
+const onSaveAndExport = () => {
+  console.log('save and export')
+}
 </script>
 
 <style lang='postcss'>
