@@ -1,7 +1,7 @@
 <template>
   <div class="h-full border-r pr-2">
     <div class="font-bold text-4xl mb-4">
-      Target
+      Target v0.0.6
     </div>
     <div>
       <div>
@@ -31,9 +31,9 @@
           Shows
         </div>
         <div>
-          <Multiselect v-model="shows" :multiple="true" :options="props.shows">
-            <template v-slot:selection="{ values, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
-          </Multiselect>
+          <multiselect v-model="selectedShows" :options="props.shows" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Pick some" label="label" track-by="label" :preselect-first="true">
+            <template v-slot:selection="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
+          </multiselect>
         </div>
       </div>
 
@@ -88,6 +88,8 @@ import { ref } from 'vue'
 // import { ChevronDownIcon } from '@heroicons/vue/20/solid'
 import Datepicker from '@vuepic/vue-datepicker';
 import { addDays } from 'date-fns'
+
+// @ts-expect-error
 import Multiselect from 'vue-multiselect'
 
 const props = defineProps({
@@ -148,9 +150,22 @@ const props = defineProps({
 
 const date = ref([new Date(), addDays(new Date(), 7)])
 
-const shows = ref()
+const selectedShows = ref([])
 const maxImpressions = ref()
 const maxImpressionsTimeLimit = ref()
+
+const onSelectShow = (selectedOption: any) => {
+  console.log(selectedOption);
+  const foundShow = selectedShows.value.find((show: any) => show.value === selectedOption.value)
+
+  if (foundShow) {
+    selectedShows.value = selectedShows.value.filter((show: any) => show.value !== selectedOption.value)
+  } else {
+    console.log('push', selectedOption);
+
+    selectedShows.value.push(selectedOption)
+  }
+}
 </script>
 
 <style lang="postcss">
