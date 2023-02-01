@@ -1,11 +1,11 @@
 <template>
-  <div class="h-full border-r pr-2">
+  <div class="h-full border-r pr-2 text-black">
     <div class="font-bold text-4xl mb-4">
-      Target v0.0.6
+      Target v0.0.7
     </div>
     <div>
       <div>
-        <div class="text-base font-bold">
+        <div class="text-base font-poppins font-semibold">
           Dates
         </div>
         <div>
@@ -51,14 +51,14 @@
       </div>
 
       <div class="mt-4">
-        <div class="text-base font-bold">
+        <div class="text-base font-bold mb-1">
           Frequency Cap
         </div>
         <div>
-          <div>
-            Max of <input type="number" class="border rounded" v-model="maxImpressions" /> impressions
+          <div class="font-inter text-sm mb-1">
+            Max of <input type="number" class="border rounded" placeholder="#" v-model="maxImpressions" /> impressions
           </div>
-          <div class="mt-1">
+          <div class="mt-1 font-inter text-sm">
             Every <input type="number" class="border rounded" v-model="maxImpressionsTimeLimit" /> day(s)
           </div>
         </div>

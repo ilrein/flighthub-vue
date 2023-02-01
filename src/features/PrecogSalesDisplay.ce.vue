@@ -112,6 +112,8 @@ onMounted(() => {
 </script>
 
 <style lang='postcss'>
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,600,700');
+@import url('https://fonts.googleapis.com/css?family=Inter:400,600,700');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
