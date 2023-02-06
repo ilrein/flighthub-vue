@@ -78,6 +78,16 @@
         </div>
       </div>
 
+      <div class="flex flex-row justify-between items-center py-4">
+        <button class="bg-gray-100 rounded px-4 py-2" @click="onReset">
+          Reset
+        </button>
+
+        <button class="bg-blue-400 text-white rounded px-4 py-2" @click="submit">
+          Adjust Target
+        </button>
+      </div>
+
     </div>
   </div>
 </template>
@@ -148,6 +158,8 @@ const props = defineProps({
   }
 })
 
+const emit = defineEmits(['submit'])
+
 const date = ref([new Date(), addDays(new Date(), 7)])
 
 const selectedShows = ref([])
@@ -161,13 +173,21 @@ const onSelectShow = (selectedOption: any) => {
   if (foundShow) {
     selectedShows.value = selectedShows.value.filter((show: any) => show.value !== selectedOption.value)
   } else {
-    console.log('push', selectedOption);
-
     selectedShows.value.push(selectedOption)
   }
 }
+
+const onReset = () => {
+  date.value = [new Date(), addDays(new Date(), 7)]
+  selectedShows.value = []
+  maxImpressions.value = null
+  maxImpressionsTimeLimit.value = null
+}
+
+const submit = () => emit('submit', {
+  date: date.value,
+  selectedShows: selectedShows.value,
+  maxImpressions: maxImpressions.value,
+  maxImpressionsTimeLimit: maxImpressionsTimeLimit.value,
+})
 </script>
-
-<style lang="postcss">
-
-</style>

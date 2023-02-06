@@ -5,7 +5,7 @@
       Campaign total {{ props.campaignTotal }}
     </div>
     <button
-      class="bg-blue-400 text-white rounded"
+      class="bg-blue-400 text-white rounded px-4 py-2"
       @click="emit('saveAndExport')"
     >
       Save and Export

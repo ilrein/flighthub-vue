@@ -39,6 +39,11 @@
         >
           <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
         </svg>
+        <!-- v-if="displayOrderWeek === week.week" -->
+        <OrderDropdown
+          :order-options="getOptions(week.week)"
+          :max-impressions="week.impressions"
+        />
       </div>
     </div>
   </div>
@@ -47,8 +52,10 @@
 <script setup lang="ts">
 import type { PropType } from 'vue';
 import { ref } from 'vue';
+import { addDays, format } from 'date-fns';
 
 import type { ImpressionWeek } from '../types'
+import OrderDropdown from './OrderDropdown.vue';
 
 const props = defineProps({
   title: {
@@ -83,7 +90,28 @@ const props = defineProps({
 
 const hoverWeek = ref();
 
+const displayOrderWeek = ref();
+
 const onSelect = (week: any) => {
   console.log(week, props.id);
+  displayOrderWeek.value = week.week;
+};
+
+const getOptions = (week: string) => {
+  const [month, day] = week.split(' ');
+  
+  const options = [];
+  // for (let i = 1; i <= week; i++) {
+  //   options.push({
+  //     label: `Week ${i}`,
+  //     value: i,
+  //   });
+  // }
+
+  // create a new date object from the month and day
+  // const date = new Date(`2021 ${month} ${day}`);
+  
+
+  return options;
 };
 </script>
