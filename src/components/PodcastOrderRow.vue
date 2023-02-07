@@ -15,17 +15,26 @@
 
     <div class="flex flex-row w-max h-max overflow-x-scroll mt-4 border-l-2 border-r-2 border-black">
       <div
-        v-for="week in weeks"
+        v-for="(week, index) in weeks"
         :key="`${week.week}`"
         class="w-32 min-w-32 border-r border-gray-300 h-full min-h-[140px] cursor-pointer transition-colors relative"
         @mouseover="hoverWeek = week.week"
         @mouseleave="hoverWeek = null"
       >
-        <div class="px-2">
-          {{ week.week }}
+        <div class="px-2 font-inter text-xs">
+          {{ formatDate(week) }}
         </div>
         <div class="px-2">
           {{ week.impressions }}
+        </div>
+        <div class="flex flex-col">
+          <OrderBar
+            v-for="order in impressionOrders.find((o) => o.week === week.week)?.orders || []"
+            :key="order.id"
+            :title="order.title"
+            :impressions="order.impressions"
+            :width="order.width"
+          />
         </div>
         <svg
           v-if="hoverWeek === week.week"
@@ -39,10 +48,11 @@
         >
           <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
         </svg>
-        <!-- v-if="displayOrderWeek === week.week" -->
         <OrderDropdown
+          v-if="displayOrderWeek === week.week"
           :order-options="getOptions(week.week)"
           :max-impressions="week.impressions"
+          @add="(data) => onAdd({ ...data, week: week.week })"
         />
       </div>
     </div>
@@ -51,11 +61,12 @@
 
 <script setup lang="ts">
 import type { PropType } from 'vue';
-import { ref } from 'vue';
+import { ref, reactive } from 'vue';
 import { addDays, format } from 'date-fns';
 
 import type { ImpressionWeek } from '../types'
 import OrderDropdown from './OrderDropdown.vue';
+import OrderBar from './OrderBar.vue';
 
 const props = defineProps({
   title: {
@@ -93,25 +104,48 @@ const hoverWeek = ref();
 const displayOrderWeek = ref();
 
 const onSelect = (week: any) => {
-  console.log(week, props.id);
   displayOrderWeek.value = week.week;
 };
 
-const getOptions = (week: string) => {
-  const [month, day] = week.split(' ');
-  
+const formatDate = (date: any) => {
+  return format(new Date(date.week), 'MMM d');
+};
+
+const getOptions = (week: Date) => {
   const options = [];
-  // for (let i = 1; i <= week; i++) {
-  //   options.push({
-  //     label: `Week ${i}`,
-  //     value: i,
-  //   });
-  // }
-
-  // create a new date object from the month and day
-  // const date = new Date(`2021 ${month} ${day}`);
-  
-
+  for (let i = 0; i < 7; i++) {
+    options.push({
+      label: format(addDays(new Date(week), i), 'MMM d'),
+      value: format(addDays(new Date(week), i), 'yyyy-MM-dd'),
+    });
+  }
   return options;
+};
+
+const impressionOrders = reactive(props.weeks.map(week => ({
+  week: week.week,
+  orders: []
+})));
+
+const onAdd = (order: any) => {
+  const { impressions, date, week } = order;
+  console.log(impressions, date, week);
+
+  displayOrderWeek.value = null;
+
+  if (!impressions) return;
+
+  // date is the current date
+
+  // week is the context
+
+  
+  const index = impressionOrders.findIndex((o) => o.week === week);
+  impressionOrders[index].orders.push({
+    id: Math.random(),
+    title: 'Order 1',
+    impressions,
+    width: 150,
+  });
 };
 </script>

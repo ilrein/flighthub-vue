@@ -1,27 +1,29 @@
 <template>
-  <div class="bg-white z-10 border border-gray-400 absolute w-24">
+  <div class="bg-white z-10 border border-gray-400 absolute w-24 rounded py-1 px-2 top-0 font-inter text-[10px]">
     <div class="flex flex-col">
-      <p class="font-inter text-[10px]">Starting On</p>
+      <p class="">Starting On</p>
       <div class="flex flex-row">
-        <select>
+        <select v-model="val" class="w-full ">
           <option
             v-for="option in props.orderOptions"
             :key="option.value"
             :value="option.value"
-            class="font-inter text-[10px]"
             v-text="option.label"
           />
         </select>
       </div>
 
-      <p>Impressions</p>
+      <p class="">Impressions</p>
       <input
         v-model="impressions"
         type="number"
+        class="w-full border rounded"
         :max="props.maxImpressions"
         min="0"
       />
-      <button @click="add">Add</button>
+      <div class="flex flex-row-reverse w-full">
+        <button class="bg-blue-400 text-white text-xs w-fit mt-1 px-2" @click="add">Add</button>
+      </div>
     </div>
   </div>
 </template>
@@ -44,10 +46,12 @@ const props = defineProps({
 const emit = defineEmits(["add"]);
 
 const impressions = ref(0);
+const val = ref(props.orderOptions[0].value);
 
 const add = () => {
   emit("add", {
     impressions: impressions.value,
+    date: val.value,
   });
 };
 </script>

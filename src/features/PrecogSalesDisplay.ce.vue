@@ -86,7 +86,7 @@ const props = defineProps({
 })
 
 const parsedProps = computed(() => {
-  // console.log(props.insertionOptions);
+  // console.log('podcasts', props.podcasts);
   
   return {
     ...props,
@@ -103,11 +103,10 @@ const onSaveAndExport = () => {
 }
 
 onMounted(() => {
-  console.log(
-    'mounted',
-    // props
-    parsedProps
-  );
+  // console.log(
+  //   'mounted',
+  //   parsedProps
+  // );
 })
 </script>
 
