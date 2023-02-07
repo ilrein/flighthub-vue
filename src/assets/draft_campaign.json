@@ -1,0 +1,56 @@
+// saving a campaign, and possibly loading a campaign
+​
+// question: if frequency_cap is not filled in (ie: both fields must whole numbers) then should we just indicate by: "frequency_cap": null
+// note: insertion drop down will have options 'pre', 'mid', 'post', 'pre + mid', 'pre + post', 'mid + post'
+// note: insertion assumes `and`, so in a saved campaign the value ["pre", "mid"] is shown in the UI as "Pre + Mid", this might change in the future for other DAIs that support OR
+// note: position can be whole numbers in range 1-5, if none selected (a valid option) then the value is 0
+// note: episode_locked is indicated by the tab selected in the UI, the default tab is 'Run of Show", in which case episode_locked = false, if Episode Locked is selected then it's true
+// note: priority comes from the availability data provided for each show. It will always be the same value for each show per query result. but each order should store it independently. Priority is never displayed in the UI but is essential to pass back to the db when a save occurs.
+// note: brand is selected after the user chooses to Save a campaign, there will have to be a way to select the brand before it'd done UI needed.
+// note: campaign type will be one of the following be save, hold, released, deleted but when it's being constructed in the UI it will be either save or hold. And for the POC only save will be possible
+​
+{
+	"campaign": {
+		"brand": 3,
+		"name": "today's client request",
+		"total": 50000,
+		"type": "save"
+	},
+	"search_criteria": {
+		"start": "2023-01-21T00:00:00.00-05:00",
+		"end": "2023-01-31T00:00:00.00-05:00",
+		"insertion": ["pre", "mid"],
+		"shows": [2, 1],
+		"geo_includes": ["us"],
+		"frequency_cap": {
+			"max": 2,
+			"days": 2
+		},
+		"postion": 0,
+		"episode_locked": false
+	},
+	"orders": {
+		"2": [
+			{
+				"start": "2023-01-23T00:00:00.00-05:00",
+				"end": "2023-01-26T00:00:00.00-05:00",
+				"cap": 33000.88,
+				"priority": 10
+			},
+			{
+				"start": "2023-01-27T00:00:00.00-05:00",
+				"end": "2023-01-30T00:00:00.00-05:00",
+				"cap": 43000.88,
+				"priority": 10
+			}
+		],
+		"1": [
+				{
+				"start": "2023-01-24T00:00:00.00-05:00",
+				"end": "2023-01-26T00:00:00.00-05:00",
+				"cap": 43000.88,
+				"priority": 9
+			}		
+		]
+	}
+}

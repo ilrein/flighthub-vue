@@ -8,6 +8,7 @@
           :shows="props.shows"
           :geoRestrictions="props.geoRestrictions"
           :positionLocked="props.positionLocked"
+          @submit="$emit('submit-target-panel')"
         />
       </div>
       <div v-if="parsedProps.podcasts && parsedProps.podcasts.length" class="col-span-4 p-4">
@@ -42,7 +43,7 @@ import PodcastOrderRow from '../components/PodcastOrderRow.vue';
 import OrderHeader from '../components/OrderHeader.vue';
 import OrderFooter from '../components/OrderFooter.vue';
 
-const emit = defineEmits(['save-and-export'])
+const emit = defineEmits(['save-and-export', 'submit-target-panel'])
 
 const props = defineProps({
   insertionOptions: {
