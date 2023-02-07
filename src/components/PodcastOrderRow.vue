@@ -31,7 +31,7 @@
           <OrderBar
             v-for="order in impressionOrders.find((o) => o.week === week.week)?.orders || []"
             :key="order.id"
-            :title="order.title"
+            :order-number="order.orderNumber"
             :impressions="order.impressions"
             :width="order.width"
           />
@@ -127,6 +127,7 @@ const impressionOrders = reactive(props.weeks.map(week => ({
   orders: [] as any[],
 })));
 
+const orderCount = ref(0);
 const onAdd = (order: any) => {
   const { impressions, date, week } = order;
   console.log(impressions, date, week);
@@ -163,9 +164,11 @@ const onAdd = (order: any) => {
   const index = impressionOrders.findIndex((o) => o.week === week);
   impressionOrders[index].orders.push({
     id: Math.random(),
-    title: 'Order 1',
+    orderNumber: orderCount.value,
     impressions,
     width,
   });
+
+  orderCount.value++;
 };
 </script>

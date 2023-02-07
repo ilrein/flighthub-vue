@@ -1,10 +1,13 @@
 <template>
-  <div class="relative grid bg-blue-50 border border-blue-50" :style="`width: ${props.width}%;`">
+  <div
+    class="relative grid bg-blue-50 border border-blue-50 h-[14px]"
+    :style="`width: ${props.width}%; transform: translateY(${props.orderNumber * 14}px);`"
+  >
     <div class="flex flex-row justify-between font-inter text-xs items-center">
       <div class="flex flex-row flex-1">
         <Bars3Icon class="w-3 mr-1" />
         <div>
-          {{ props.title }}
+          {{ `Order ${props.orderNumber + 1}` }}
         </div>
       </div>
       <div>
@@ -22,13 +25,13 @@ const props = defineProps({
     type: Number,
     default: 0,
   },
-  title: {
-    type: String,
-    required: true,
-  },
   width: {
     type: Number,
     default: 100,
+  },
+  orderNumber: {
+    type: Number,
+    default: 0,
   }
 });
 </script>
