@@ -4,17 +4,13 @@
     <div class="grid grid-cols-6">
       <div class="col-span-2 p-4">
         <TargetPanel
-          :startDate="props.startDate"
-          :endDate="props.endDate"
           :insertionOptions="parsedProps.insertionOptions"
           :shows="props.shows"
           :geoRestrictions="props.geoRestrictions"
-          :maxImpressions="props.maxImpressions"
-          :maxImpressionsTimeLimit="props.maxImpressionsTimeLimit"
           :positionLocked="props.positionLocked"
         />
       </div>
-      <div class="col-span-4 p-4">
+      <div v-if="parsedProps.podcasts && parsedProps.podcasts.length" class="col-span-4 p-4">
         <OrderHeader />
         <PodcastOrderRow
           v-for="podcast in parsedProps.podcasts"
@@ -23,13 +19,20 @@
         />
         <OrderFooter @save-and-export="onSaveAndExport" />
       </div>
+      <div v-else class="col-span-4 h-full w-full p-4">
+        Search for a podcast to get started
+      </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import type { Podcast } from '../types'
-import { onMounted, computed, type PropType } from 'vue';
+// import type { Podcast } from '../types'
+import {
+  onMounted,
+  computed,
+  // type PropType
+} from 'vue';
 import 'vue-multiselect/dist/vue-multiselect.css'
 import '@vuepic/vue-datepicker/dist/main.css'
 
@@ -71,14 +74,6 @@ const props = defineProps({
         value: 'canada',
       }
     ]
-  },
-  maxImpressions: {
-    type: Number,
-    default: null,
-  },
-  maxImpressionsTimeLimit: {
-    type: Number,
-    default: null,
   },
   positionLocked: {
     type: String,
