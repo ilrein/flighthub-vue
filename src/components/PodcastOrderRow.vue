@@ -124,7 +124,7 @@ const getOptions = (week: Date) => {
 
 const impressionOrders = reactive(props.weeks.map(week => ({
   week: week.week,
-  orders: []
+  orders: [] as any[],
 })));
 
 const onAdd = (order: any) => {
@@ -135,17 +135,37 @@ const onAdd = (order: any) => {
 
   if (!impressions) return;
 
-  // date is the current date
+  // lets get the max impressions for the week
+  const maxImpressions = props.weeks.find((w) => w.week === week).impressions;
+  const maxImpressionsIndex = props.weeks.findIndex((w) => w.week === week);
 
-  // week is the context
+  const nextWeek = props.weeks[maxImpressionsIndex + 1];
+  const nextWeekImpressions = nextWeek?.impressions || 0;
+  
+  // if the impressions are greater than the max impressions for the week
+  // and the current week
+  // return
+  if (impressions > (maxImpressions + nextWeekImpressions)) return;
 
+  let width = 0;
+  
+  // if the impressions of this week are less than or equal to the max impressions
+  // then the percentage should be relative to 100%
+  if (impressions <= maxImpressions) {
+    width = (impressions / maxImpressions) * 100;
+  } else {
+    // if the impressions are greater than the max impressions
+    // then the percentage should be 100% for the current week
+    // and also increased by the percentage of the next week
+    width = 100 + ((impressions - maxImpressions) / nextWeekImpressions) * 100;
+  }
   
   const index = impressionOrders.findIndex((o) => o.week === week);
   impressionOrders[index].orders.push({
     id: Math.random(),
     title: 'Order 1',
     impressions,
-    width: 150,
+    width,
   });
 };
 </script>
