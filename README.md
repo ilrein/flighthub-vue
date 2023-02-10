@@ -12,10 +12,10 @@ npm run storybook
 
 ### Props for the Target panel
 
-// insertion options is an array of objects with label and value
+// All Dropdowns take an array of Label + Value
 // label is the label to display
 // value is the value to send to the backend
-// same with shows
+// insertion options/shows selected/georestrictions
 
 ``` 
 [
