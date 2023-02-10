@@ -6,9 +6,9 @@
         <TargetPanel
           :insertionOptions="parsedProps.insertionOptions"
           :shows="parsedProps.shows"
-          :geoRestrictions="props.geoRestrictions"
-          :positionLocked="props.positionLocked"
-          @submit="$emit('submit-target-panel')"
+          :geoRestrictions="parsedProps.geoRestrictions"
+          :positionLocked="parsedProps.positionLocked"
+          @submit="onSubmitTargetPanel"
         />
       </div>
       <div v-if="parsedProps.podcasts && parsedProps.podcasts.length" class="col-span-4 p-4">
@@ -29,7 +29,6 @@
 
 <script setup lang="ts">
 import {
-  onMounted,
   computed,
 } from 'vue';
 import 'vue-multiselect/dist/vue-multiselect.css'
@@ -41,7 +40,10 @@ import PodcastOrderRow from '../components/PodcastOrderRow.vue';
 import OrderHeader from '../components/OrderHeader.vue';
 import OrderFooter from '../components/OrderFooter.vue';
 
-const emit = defineEmits(['save-and-export', 'submit-target-panel'])
+const emit = defineEmits([
+  'save-and-export',
+  'submit-target-panel'
+])
 
 const props = defineProps({
   insertionOptions: {
@@ -54,17 +56,17 @@ const props = defineProps({
     default: () => JSON.stringify([]),
   },
   geoRestrictions: {
-    type: Array,
-    default: () => [
+    type: String,
+    default: () => JSON.stringify([
       {
         label: 'Canada',
         value: 'canada',
       }
-    ]
+    ])
   },
   positionLocked: {
-    type: Array,
-    default: () => []
+    type: String,
+    default: () => JSON.stringify([])
   },
   podcasts: {
     type: String,
@@ -73,29 +75,27 @@ const props = defineProps({
 })
 
 const parsedProps = computed(() => {
-  // console.log('podcasts', props.podcasts);
-  
   return {
     ...props,
     podcasts: JSON.parse(props.podcasts),
     insertionOptions: JSON.parse(props.insertionOptions),
     shows: JSON.parse(props.shows),
+    geoRestrictions: JSON.parse(props.geoRestrictions),
+    positionLocked: JSON.parse(props.positionLocked),
   }
 })
 
 const onSaveAndExport = () => {
-  console.log('save and export!')
   emit('save-and-export', {
     foo: 'bar',
   })
 }
 
-onMounted(() => {
-  // console.log(
-  //   'mounted',
-  //   parsedProps
-  // );
-})
+const onSubmitTargetPanel = (data: String) => {
+  emit('submit-target-panel', data)
+  console.log(data);
+  
+}
 </script>
 
 <style lang='postcss'>

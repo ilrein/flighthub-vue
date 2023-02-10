@@ -18,7 +18,7 @@
           Insertion
         </div>
         <div>
-          <select class="w-full border rounded p-2">
+          <select v-model="insertion" class="w-full border rounded p-2">
             <option v-for="option in props.insertionOptions" :key="option.value">
               {{ option.label }}
             </option>
@@ -31,8 +31,25 @@
           Shows
         </div>
         <div>
-          <multiselect v-model="selectedShows" :options="props.shows" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Pick some" label="label" track-by="label" :preselect-first="true">
-            <template v-slot:selection="{ values, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
+          <multiselect
+            v-model="selectedShows"
+            :options="props.shows"
+            :multiple="true"
+            :close-on-select="false"
+            :clear-on-select="false"
+            :preserve-search="true"
+            placeholder="Pick some"
+            label="label"
+            track-by="label"
+          >
+            <template v-slot:selection="{ values, isOpen }">
+              <span class="multiselect__single"
+                v-if="values.length"
+                v-show="!isOpen"
+              >
+                {{ values.length }} options selected
+              </span>
+            </template>
           </multiselect>
         </div>
       </div>
@@ -42,7 +59,7 @@
           Geo Restrictions
         </div>
         <div>
-          <select class="w-full border rounded p-2">
+          <select v-model="geoRestrictions" class="w-full border rounded p-2">
             <option v-for="option in props.geoRestrictions" :key="option.value">
               {{ option.label }}
             </option>
@@ -132,33 +149,30 @@ const props = defineProps({
 const emit = defineEmits(['submit'])
 
 const date = ref([new Date(), addDays(new Date(), 7)])
-
-const selectedShows = ref([])
+const insertion = ref()
+const selectedShows = ref([] as DropdownOption[])
+const geoRestrictions = ref([] as DropdownOption[])
 const maxImpressions = ref()
 const maxImpressionsTimeLimit = ref()
-
-const onSelectShow = (selectedOption: any) => {
-  console.log(selectedOption);
-  const foundShow = selectedShows.value.find((show: any) => show.value === selectedOption.value)
-
-  if (foundShow) {
-    selectedShows.value = selectedShows.value.filter((show: any) => show.value !== selectedOption.value)
-  } else {
-    selectedShows.value.push(selectedOption)
-  }
-}
+const positionLocked = ref([] as DropdownOption[])
 
 const onReset = () => {
   date.value = [new Date(), addDays(new Date(), 7)]
+  insertion.value = null
   selectedShows.value = []
+  geoRestrictions.value = []
   maxImpressions.value = null
   maxImpressionsTimeLimit.value = null
+  positionLocked.value = []
 }
 
-const submit = () => emit('submit', {
+const submit = () => emit('submit', JSON.stringify({
   date: date.value,
-  selectedShows: selectedShows.value,
+  insertion: insertion.value,
+  selectedShows: selectedShows.value.map(obj => obj.value),
+  geoRestrictions: geoRestrictions.value,
   maxImpressions: maxImpressions.value,
   maxImpressionsTimeLimit: maxImpressionsTimeLimit.value,
-})
+  positionLocked: positionLocked.value,
+}, null, 2))
 </script>
