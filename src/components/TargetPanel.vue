@@ -93,9 +93,11 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, type PropType } from 'vue'
 import Datepicker from '@vuepic/vue-datepicker';
 import { addDays } from 'date-fns'
+
+import type { DropdownOption } from '../types'
 
 // @ts-expect-error
 import Multiselect from 'vue-multiselect'
@@ -110,19 +112,19 @@ const props = defineProps({
     default: addDays(new Date(), 7),
   },
   insertionOptions: {
-    type: Array,
+    type: Array as PropType<DropdownOption[]>,
     required: true,
   },
   shows: {
-    type: Array,
+    type: Array as PropType<DropdownOption[]>,
     required: true,
   },
   geoRestrictions: {
-    type: Array,
+    type: Array as PropType<DropdownOption[]>,
     required: true,
   },
   positionLocked: {
-    type: Array,
+    type: Array as PropType<DropdownOption[]>,
     required: true,
   }
 })

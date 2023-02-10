@@ -1,9 +1,3 @@
-import {
-  addDays,
-  nextMonday,
-  format
-} from 'date-fns';
-
 import PrecogSalesDisplay from '../features/PrecogSalesDisplay.ce.vue';
 
 export default {
@@ -25,31 +19,15 @@ const Template = (args) => ({
   },
 
   // Here we define the `template`
-  template: '<precog-sales-display :podcasts="podcasts" :insertion-options="insertionOptions" />',
+  template: '<precog-sales-display :podcasts="podcasts" :insertion-options="insertionOptions" :shows="shows" />',
 });
-
-// const weeks = () => {
-//   const weeks = [];
-
-//   let startingPoint = nextMonday(new Date());
-//   const diff = 8;
-
-//   while (weeks.length < diff) {
-//     weeks.push({
-//       week: format(startingPoint, 'MMM d'),
-//       impressions: Math.ceil(Math.random() * 100000),
-//     });
-//     startingPoint = addDays(startingPoint, 7);
-//   }
-  
-//   return weeks;
-// };
 
 // More on interaction testing: https://storybook.js.org/docs/vue/writing-tests/interaction-testing
 export const Default = Template.bind({});
 Default.args = {
   podcasts: '[]',
-  insertionOptions: '[{"label":"test","value":"test"}]'
+  insertionOptions: '[{"label":"test","value":"test"}]',
+  shows: JSON.stringify([ { label: 'The Daily', value: 'The Daily', }, { label: 'Hello World', value: 'Hello World', } ])
 };
 
 export const WithPodcasts = Template.bind({});

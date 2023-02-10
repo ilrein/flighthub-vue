@@ -5,7 +5,7 @@
       <div class="col-span-2 p-4">
         <TargetPanel
           :insertionOptions="parsedProps.insertionOptions"
-          :shows="props.shows"
+          :shows="parsedProps.shows"
           :geoRestrictions="props.geoRestrictions"
           :positionLocked="props.positionLocked"
           @submit="$emit('submit-target-panel')"
@@ -28,11 +28,9 @@
 </template>
 
 <script setup lang="ts">
-// import type { Podcast } from '../types'
 import {
   onMounted,
   computed,
-  // type PropType
 } from 'vue';
 import 'vue-multiselect/dist/vue-multiselect.css'
 import '@vuepic/vue-datepicker/dist/main.css'
@@ -51,8 +49,9 @@ const props = defineProps({
     default: null,
   },
   shows: {
-    type: Array,
-    default: () => [],
+    // type: Array as PropType<DropdownOption[]>,
+    type: String,
+    default: () => JSON.stringify([]),
   },
   geoRestrictions: {
     type: Array,
@@ -80,6 +79,7 @@ const parsedProps = computed(() => {
     ...props,
     podcasts: JSON.parse(props.podcasts),
     insertionOptions: JSON.parse(props.insertionOptions),
+    shows: JSON.parse(props.shows),
   }
 })
 
