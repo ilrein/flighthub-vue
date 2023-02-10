@@ -41,8 +41,8 @@ import OrderHeader from '../components/OrderHeader.vue';
 import OrderFooter from '../components/OrderFooter.vue';
 
 const emit = defineEmits([
-  'save-and-export',
-  'submit-target-panel'
+  'onSaveAndExport',
+  'onSubmitTarget'
 ])
 
 const props = defineProps({
@@ -86,13 +86,13 @@ const parsedProps = computed(() => {
 })
 
 const onSaveAndExport = () => {
-  emit('save-and-export', {
+  emit('onSaveAndExport', {
     foo: 'bar',
   })
 }
 
 const onSubmitTargetPanel = (data: String) => {
-  emit('submit-target-panel', data)
+  emit('onSubmitTarget', data)
   console.log(data);
   
 }

@@ -23,7 +23,7 @@
     "build-only": "vite build",
     "type-check": "vue-tsc --noEmit -p tsconfig.vitest.json --composite false",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
-    "storybook": "start-storybook -p 7000",
+    "storybook": "start-storybook -p 7001",
     "build-storybook": "build-storybook",
     "publish:lib": "npm run build; npm publish;",
     "publish:lib-only": "npm run build-only; npm publish;",

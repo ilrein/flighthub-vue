@@ -19,7 +19,12 @@ const Template = (args) => ({
   },
 
   // Here we define the `template`
-  template: '<precog-sales-display :podcasts="podcasts" :insertion-options="insertionOptions" :shows="shows" />',
+  template:
+    `<precog-sales-display
+      :podcasts="podcasts"
+      :insertion-options="insertionOptions"
+      :shows="shows"
+    />`,
 });
 
 // More on interaction testing: https://storybook.js.org/docs/vue/writing-tests/interaction-testing
@@ -27,7 +32,7 @@ export const Default = Template.bind({});
 Default.args = {
   podcasts: '[]',
   insertionOptions: '[{"label":"test","value":"test"}]',
-  shows: JSON.stringify([ { label: 'The Daily', value: 'The Daily', }, { label: 'Hello World', value: 'Hello World', } ])
+  shows: JSON.stringify([ { label: 'The Daily', value: 'The Daily', }, { label: 'Hello World', value: 'Hello World', } ]),
 };
 
 export const WithPodcasts = Template.bind({});
