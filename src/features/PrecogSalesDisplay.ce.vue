@@ -77,8 +77,8 @@ const props = defineProps({
     ]
   },
   positionLocked: {
-    type: String,
-    default: null,
+    type: Array,
+    default: () => []
   },
   podcasts: {
     type: String,

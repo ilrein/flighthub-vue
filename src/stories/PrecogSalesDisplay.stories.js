@@ -28,22 +28,22 @@ const Template = (args) => ({
   template: '<precog-sales-display :podcasts="podcasts" :insertion-options="insertionOptions" />',
 });
 
-const weeks = () => {
-  const weeks = [];
+// const weeks = () => {
+//   const weeks = [];
 
-  let startingPoint = nextMonday(new Date());
-  const diff = 8;
+//   let startingPoint = nextMonday(new Date());
+//   const diff = 8;
 
-  while (weeks.length < diff) {
-    weeks.push({
-      week: format(startingPoint, 'MMM d'),
-      impressions: Math.ceil(Math.random() * 100000),
-    });
-    startingPoint = addDays(startingPoint, 7);
-  }
+//   while (weeks.length < diff) {
+//     weeks.push({
+//       week: format(startingPoint, 'MMM d'),
+//       impressions: Math.ceil(Math.random() * 100000),
+//     });
+//     startingPoint = addDays(startingPoint, 7);
+//   }
   
-  return weeks;
-};
+//   return weeks;
+// };
 
 // More on interaction testing: https://storybook.js.org/docs/vue/writing-tests/interaction-testing
 export const Default = Template.bind({});

@@ -1,7 +1,7 @@
 <template>
   <div class="h-full border-r pr-2 text-black">
     <div class="font-bold text-4xl mb-4">
-      Target v0.0.7
+      Target
     </div>
     <div>
       <div>
@@ -32,7 +32,7 @@
         </div>
         <div>
           <multiselect v-model="selectedShows" :options="props.shows" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Pick some" label="label" track-by="label" :preselect-first="true">
-            <template v-slot:selection="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
+            <template v-slot:selection="{ values, isOpen }"><span class="multiselect__single" v-if="values.length" v-show="!isOpen">{{ values.length }} options selected</span></template>
           </multiselect>
         </div>
       </div>
@@ -94,8 +94,6 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-// import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
-// import { ChevronDownIcon } from '@heroicons/vue/20/solid'
 import Datepicker from '@vuepic/vue-datepicker';
 import { addDays } from 'date-fns'
 
@@ -113,48 +111,19 @@ const props = defineProps({
   },
   insertionOptions: {
     type: Array,
-    default: () => [{
-      label: 'Pre + Mid',
-      value: 'pre-mid',
-    }],
+    required: true,
   },
   shows: {
     type: Array,
-    default: () => [
-      {
-        label: 'Show 1',
-        value: 'show-1',
-      },
-      {
-        label: 'Show 2',
-        value: 'show-2',
-      },
-      {
-        label: 'Show 3',
-        value: 'show-3',
-      },
-    ],
+    required: true,
   },
   geoRestrictions: {
     type: Array,
-    default: () => [
-      {
-        label: 'Canada',
-        value: 'canada',
-      }
-    ]
-  },
-  maxImpressions: {
-    type: Number,
-    default: null,
-  },
-  maxImpressionsTimeLimit: {
-    type: Number,
-    default: null,
+    required: true,
   },
   positionLocked: {
-    type: String,
-    default: null,
+    type: Array,
+    required: true,
   }
 })
 
