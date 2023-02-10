@@ -52,20 +52,7 @@ const props = defineProps({
   },
   shows: {
     type: Array,
-    default: () => [
-      {
-        label: 'Show 1',
-        value: 'show-1',
-      },
-      {
-        label: 'Show 2',
-        value: 'show-2',
-      },
-      {
-        label: 'Show 3',
-        value: 'show-3',
-      },
-    ],
+    default: () => [],
   },
   geoRestrictions: {
     type: Array,
