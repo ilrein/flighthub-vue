@@ -89,6 +89,7 @@ const parsedProps = computed(() => {
 })
 
 const onSubmitTargetPanel = (data: String) => {
+  console.log('onSubmitTargetPanel', data)
   emit('onSubmitTarget', data)
 }
 

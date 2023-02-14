@@ -6,3 +6,7 @@
   - defaults to a list from now -> +2months
   - it has horizontal scrolling all the
   - start in the upcoming next week
+
+
+- default impressions per block should be the same as the max impressions as the week
+- finish README
