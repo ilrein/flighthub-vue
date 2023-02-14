@@ -17,8 +17,9 @@
           v-for="podcast in parsedProps.podcasts"
           :key="podcast.id"
           v-bind="podcast"
+          @add="onAdd"
         />
-        <OrderFooter @save-and-export="onSaveAndExport" />
+        <OrderFooter :campaign-total="campaignTotal" @save-and-export="onSaveAndExport" />
       </div>
       <div v-else class="col-span-4 h-full w-full p-4">
         Search for a podcast to get started
@@ -30,6 +31,8 @@
 <script setup lang="ts">
 import {
   computed,
+  ref,
+  reactive
 } from 'vue';
 import 'vue-multiselect/dist/vue-multiselect.css'
 import '@vuepic/vue-datepicker/dist/main.css'
@@ -85,16 +88,25 @@ const parsedProps = computed(() => {
   }
 })
 
-const onSaveAndExport = () => {
-  emit('onSaveAndExport', {
-    foo: 'bar',
-  })
-}
-
 const onSubmitTargetPanel = (data: String) => {
   emit('onSubmitTarget', data)
-  console.log(data);
-  
+}
+
+const campaignTotal = computed(() => {
+  return orders.reduce((acc, order) => {
+    return acc + order.impressions
+  }, 0)
+})
+
+const orders = reactive([])
+const onAdd = (data: any) => {
+  // console.log('onAdd', data);
+  orders.push(data.order)
+}
+
+const onSaveAndExport = () => {
+  console.log('onSaveAndExport', orders);
+  emit('onSaveAndExport', orders)
 }
 </script>
 

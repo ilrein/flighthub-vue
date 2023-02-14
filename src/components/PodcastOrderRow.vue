@@ -124,6 +124,7 @@
 import type { PropType } from "vue";
 import { ref, reactive, computed } from "vue";
 import { addDays, format } from "date-fns";
+// @ts-ignore
 import randomHex from "random-hex";
 
 import type { ImpressionWeek } from "../types";
@@ -161,6 +162,8 @@ const props = defineProps({
   },
 });
 
+const emit = defineEmits(["add", "close"])
+
 const hoverWeek = ref();
 
 const displayOrderWeek = ref();
@@ -196,9 +199,19 @@ const impressionOrders = reactive(
 );
 
 const orderCount = ref(0);
-const onClose = () => {
-  displayOrderWeek.value = null;
-};
+const onClose = () => displayOrderWeek.value = null;
+
+const sumOfOrderImpressions = computed(() => {
+  return impressionOrders.reduce((acc, curr) => {
+    return (
+      acc +
+      curr.orders.reduce((acc, curr) => {
+        return acc + curr.impressions;
+      }, 0)
+    );
+  }, 0);
+});
+
 const onAdd = (order: any) => {
   const { impressions, week, weekIndex } = order;
 
@@ -207,18 +220,6 @@ const onAdd = (order: any) => {
   };
 
   if (!impressions) return;
-
-  // possible impressions left to be ordered
-  // reduce the impressions by the current week
-  // if there are impressions left, go to the next week
-  // const impressionsLeft = props.weeks.reduce((acc, curr, index) => {
-  //   if (index === weekIndex) {
-  //     return acc - curr.impressions;
-  //   }
-
-  //   return acc;
-  // }, impressions);
-  // console.log('impressionsLeft', impressionsLeft);
 
   const getTotalSizeOfOrderBar = (
     impressions: number,
@@ -253,16 +254,9 @@ const onAdd = (order: any) => {
   orderCount.value++;
 
   onClose();
+  emit("add", {
+    order,
+    sumOfOrderImpressions
+  });
 };
-
-const sumOfOrderImpressions = computed(() => {
-  return impressionOrders.reduce((acc, curr) => {
-    return (
-      acc +
-      curr.orders.reduce((acc, curr) => {
-        return acc + curr.impressions;
-      }, 0)
-    );
-  }, 0);
-});
 </script>
