@@ -35,6 +35,7 @@
     "@heroicons/vue": "^2.0.14",
     "@storybook/addon-postcss": "^2.0.0",
     "@vuepic/vue-datepicker": "^3.6.5",
+    "@vueuse/core": "^9.12.0",
     "date-fns": "^2.29.3",
     "vue": "^3.2.45",
     "vue-multiselect": "^3.0.0-alpha.2"

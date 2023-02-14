@@ -1,8 +1,8 @@
 <template>
-  <div class="bg-white z-10 border border-gray-400 absolute w-24 rounded py-1 px-2 top-0 font-inter text-[10px]">
+  <div ref="orderdropdown" class="bg-white z-10 border border-gray-400 absolute w-24 rounded py-1 px-2 top-0 font-inter text-[10px]">
     <div class="flex flex-col">
       <p class="">Starting On</p>
-      <div class="flex flex-row">
+      <div class="flex flex-row border rounded">
         <select v-model="val" class="w-full ">
           <option
             v-for="option in props.orderOptions"
@@ -31,6 +31,7 @@
 <script setup lang="ts">
 import type { PropType } from "vue";
 import { ref } from "vue";
+import { onClickOutside } from "@vueuse/core";
 
 const props = defineProps({
   orderOptions: {
@@ -43,7 +44,7 @@ const props = defineProps({
   },
 });
 
-const emit = defineEmits(["add"]);
+const emit = defineEmits(["add", 'close']);
 
 const impressions = ref(0);
 const val = ref(props.orderOptions[0].value);
@@ -54,4 +55,7 @@ const add = () => {
     date: val.value,
   });
 };
+
+const orderdropdown = ref<HTMLElement | null>(null);
+onClickOutside(orderdropdown, () => emit('close'));
 </script>

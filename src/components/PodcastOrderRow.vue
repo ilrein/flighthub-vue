@@ -15,7 +15,7 @@
 
     <div class="flex flex-row w-max h-max overflow-x-scroll mt-4 border-l-2 border-r-2 border-black">
       <div
-        v-for="(week, index) in weeks"
+        v-for="week in weeks"
         :key="`${week.week}`"
         class="w-32 min-w-32 border-r border-gray-300 h-full min-h-[140px] cursor-pointer transition-colors relative"
         @mouseover="hoverWeek = week.week"
@@ -53,6 +53,7 @@
           :order-options="getOptions(week.week)"
           :max-impressions="week.impressions"
           @add="(data) => onAdd({ ...data, week: week.week })"
+          @close="onClose"
         />
       </div>
     </div>
@@ -128,11 +129,14 @@ const impressionOrders = reactive(props.weeks.map(week => ({
 })));
 
 const orderCount = ref(0);
+const onClose = () => {
+  displayOrderWeek.value = null;
+};
 const onAdd = (order: any) => {
   const { impressions, date, week } = order;
-  console.log(impressions, date, week);
+  // console.log(impressions, date, week);
 
-  displayOrderWeek.value = null;
+  onClose();
 
   if (!impressions) return;
 
