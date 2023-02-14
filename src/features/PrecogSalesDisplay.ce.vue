@@ -104,6 +104,10 @@ const onSubmitTargetPanel = (data: String) => {
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.contrast {
+  filter: saturate(0) grayscale(1) brightness(.7) contrast(1000%) invert(1);
+}
 </style>
 
 <style>

@@ -10061,6 +10061,11 @@ ramda@^0.28.0:
   resolved "https://registry.yarnpkg.com/ramda/-/ramda-0.28.0.tgz#acd785690100337e8b063cab3470019be427cc97"
   integrity sha512-9QnLuG/kPVgWvMQ4aODhsBUFKOUmnbUnsSXACv+NCQZcHbeb+v8Lodp8OVxtRULN1/xOyYLLaL6npE6dMq5QTA==
 
+random-hex@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/random-hex/-/random-hex-1.0.2.tgz#17b5524413455ddb710c8c4846a11ab7195bf49f"
+  integrity sha512-MZa4hZIAFdVV/mzB1YZjdwrjzsjuYzR7gY1R9GDCQqGJYbbyQHp9+uS3T3vmhYM+GagELvufkE1eD0T1nSS1uQ==
+
 randombytes@^2.0.0, randombytes@^2.0.1, randombytes@^2.0.5, randombytes@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/randombytes/-/randombytes-2.1.0.tgz#df6f84372f0270dc65cdf6291349ab7a473d4f2a"
