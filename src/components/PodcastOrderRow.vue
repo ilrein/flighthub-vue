@@ -13,48 +13,37 @@
       </div>
     </div>
 
-    <div class="flex flex-row w-max h-max overflow-x-scroll mt-4 border-l-2 border-r-2 border-black">
-      <div
-        v-for="week in weeks"
-        :key="`${week.week}`"
-        class="w-32 min-w-32 border-r border-gray-300 h-full min-h-[140px] cursor-pointer transition-colors relative"
-        @mouseover="hoverWeek = week.week"
-        @mouseleave="hoverWeek = null"
-      >
-        <div class="px-2 font-inter text-xs">
-          {{ formatDate(week) }}
+    <div class="grid grid-flow-col">
+      <div class="flex flex-row w-max h-max overflow-x-scroll mt-4 border-l-2 border-r-2 border-black">
+        <div v-for="(week, index) in weeks" :key="`${week.week}`" class="w-32 border-r border-gray-300 h-full min-h-[140px] cursor-pointer transition-colors relative" @mouseover="hoverWeek = week.week" @mouseleave="hoverWeek = null">
+          <div class="px-2 font-inter text-xs">
+            {{ formatDate(week) }}
+          </div>
+          <div class="px-2">
+            {{ week.impressions }}
+          </div>
+          <div class="flex flex-col">
+            <OrderBar v-for="order in impressionOrders.find((o) => o.week === week.week)?.orders || []" :key="order.id" :order-number="order.orderNumber" :impressions="order.impressions" :width="order.width" />
+          </div>
+          <svg v-if="hoverWeek === week.week" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-blue-400 absolute bottom-0 left-0 hover:text-blue-700" @click="onSelect(week)">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <OrderDropdown v-if="displayOrderWeek === week.week" :order-options="getOptions(week.week)" :max-impressions="week.impressions" @add="(data) => onAdd({ ...data, week: week.week, weekIndex: index })" @close="onClose" />
         </div>
-        <div class="px-2">
-          {{ week.impressions }}
+      </div>
+
+      <div class="col-span-1 h-full w-full bg-white z-10 mt-8 ml-2">
+        <div class="flex">
+          {{ props.maxImpressions }}
         </div>
-        <div class="flex flex-col">
-          <OrderBar
-            v-for="order in impressionOrders.find((o) => o.week === week.week)?.orders || []"
-            :key="order.id"
-            :order-number="order.orderNumber"
-            :impressions="order.impressions"
-            :width="order.width"
-          />
-        </div>
-        <svg
-          v-if="hoverWeek === week.week"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke-width="1.5"
-          stroke="currentColor"
-          class="w-6 h-6 text-blue-400 absolute bottom-0 left-0 hover:text-blue-700"
-          @click="onSelect(week)"
+        <div
+          v-for="impressionOrder in impressionOrders"
+          :key="impressionOrder.week"
         >
-          <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-        </svg>
-        <OrderDropdown
-          v-if="displayOrderWeek === week.week"
-          :order-options="getOptions(week.week)"
-          :max-impressions="week.impressions"
-          @add="(data) => onAdd({ ...data, week: week.week })"
-          @close="onClose"
-        />
+          <div v-for="order in impressionOrder.orders" :key="order.id" class="text-xs">
+            {{ order.impressions }}
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -62,7 +51,7 @@
 
 <script setup lang="ts">
 import type { PropType } from 'vue';
-import { ref, reactive } from 'vue';
+import { ref, reactive, computed } from 'vue';
 import { addDays, format } from 'date-fns';
 
 import type { ImpressionWeek } from '../types'
@@ -114,14 +103,20 @@ const formatDate = (date: any) => {
 
 const getOptions = (week: Date) => {
   const options = [];
-  for (let i = 0; i < 7; i++) {
+
+  for (let i = 0; i < 8; i++) {
     options.push({
-      label: format(addDays(new Date(week), i), 'MMM d'),
-      value: format(addDays(new Date(week), i), 'yyyy-MM-dd'),
+      label: format(addDays(new Date(week), i * 7), 'MMM d'),
+      value: format(addDays(new Date(week), i * 7), 'yyyy-MM-dd'),
+      maxImpressions: 0,
+      available: true,
     });
   }
+
   return options;
 };
+
+// const orderOptions = reactive(getOptions(new Date()));
 
 const impressionOrders = reactive(props.weeks.map(week => ({
   week: week.week,
@@ -133,46 +128,57 @@ const onClose = () => {
   displayOrderWeek.value = null;
 };
 const onAdd = (order: any) => {
-  const { impressions, date, week } = order;
-  // console.log(impressions, date, week);
+  const { impressions, week, weekIndex } = order;
 
-  onClose();
+  const getImpressionsForWeekByIndex = (index: number) => {
+    return props.weeks.map((w) => w.impressions)[index];
+  }
 
   if (!impressions) return;
 
-  // lets get the max impressions for the week
-  const maxImpressions = props.weeks.find((w) => w.week === week).impressions;
-  const maxImpressionsIndex = props.weeks.findIndex((w) => w.week === week);
+  // possible impressions left to be ordered
+  // reduce the impressions by the current week
+  // if there are impressions left, go to the next week
+  // const impressionsLeft = props.weeks.reduce((acc, curr, index) => {
+  //   if (index === weekIndex) {
+  //     return acc - curr.impressions;
+  //   }
 
-  const nextWeek = props.weeks[maxImpressionsIndex + 1];
-  const nextWeekImpressions = nextWeek?.impressions || 0;
-  
-  // if the impressions are greater than the max impressions for the week
-  // and the current week
-  // return
-  if (impressions > (maxImpressions + nextWeekImpressions)) return;
+  //   return acc;
+  // }, impressions);
+  // console.log('impressionsLeft', impressionsLeft);
 
-  let width = 0;
-  
-  // if the impressions of this week are less than or equal to the max impressions
-  // then the percentage should be relative to 100%
-  if (impressions <= maxImpressions) {
-    width = (impressions / maxImpressions) * 100;
-  } else {
-    // if the impressions are greater than the max impressions
-    // then the percentage should be 100% for the current week
-    // and also increased by the percentage of the next week
-    width = 100 + ((impressions - maxImpressions) / nextWeekImpressions) * 100;
-  }
-  
+
+  const getTotalSizeOfOrderBar = (impressions: number, weekIndex: number): number => {
+    if (!getImpressionsForWeekByIndex(weekIndex + 1)) {
+      return 100
+    }
+
+    if (impressions <= getImpressionsForWeekByIndex(weekIndex)) {
+      return 100
+    } else {
+      return 100 + getTotalSizeOfOrderBar(impressions - getImpressionsForWeekByIndex(weekIndex), weekIndex + 1)
+    }
+  };
+
   const index = impressionOrders.findIndex((o) => o.week === week);
   impressionOrders[index].orders.push({
     id: Math.random(),
     orderNumber: orderCount.value,
     impressions,
-    width,
+    width: getTotalSizeOfOrderBar(impressions, weekIndex)
   });
 
   orderCount.value++;
+
+  onClose();
 };
+
+const sumOfOrderImpressions = computed(() => {
+  return impressionOrders.reduce((acc, curr) => {
+    return acc + curr.orders.reduce((acc, curr) => {
+      return acc + curr.impressions
+    }, 0)
+  }, 0)
+})
 </script>

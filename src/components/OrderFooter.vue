@@ -1,8 +1,8 @@
 <template>
   <div class="flex flex-row justify-end">
-    <div class="flex flex-col">
+    <div class="flex flex-col font-poppins font-semibold">
       <div>
-      Campaign total {{ props.campaignTotal }}
+      Campaign total <span class="ml-4">{{ props.campaignTotal }}</span>
     </div>
     <button
       class="bg-blue-400 text-white rounded px-4 py-2"
