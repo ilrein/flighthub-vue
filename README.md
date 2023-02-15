@@ -26,4 +26,3 @@ npm run storybook
 }
 ```
 
-https://www.chromatic.com/component?appId=63e5bacdef7d062ada135058&csfId=precogsalesdisplay--default&buildNumber=7&k=63e5d2f208012f57a30a3421-1200-interactive-true&h=11&b=-5

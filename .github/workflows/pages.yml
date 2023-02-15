@@ -1,18 +1,26 @@
-# name: Build and Publish storybook to GitHub Pages
+# .github/workflows/chromatic.yml
 
-# on:
-#   push:
-#     branches:
-#       - "main"
-# jobs:
-#   deploy:
-#     environment:
-#       name: github-pages
-#       url: ${{ steps.build-publish.outputs.page_url }}
-#     runs-on: ubuntu-latest
-#     steps:
-#       - id: build-publish
-#         uses: bitovi/github-actions-react-to-ghp@v1.2.0
-#         with:
-#           path: dist/storybook
-#           build_command: npm run build-storybook
+# Workflow name
+name: "Chromatic"
+
+# Event for the workflow
+on: push
+
+# List of jobs
+jobs:
+  chromatic-deployment:
+    # Operating System
+    runs-on: ubuntu-latest
+    # Job steps
+    steps:
+      - uses: actions/checkout@v1
+      - name: Install dependencies
+        # 👇 Install dependencies with the same package manager used in the project (replace it as needed), e.g. yarn, npm, pnpm
+        run: yarn
+        # 👇 Adds Chromatic as a step in the workflow
+      - name: Publish to Chromatic
+        uses: chromaui/action@v1
+        # Chromatic GitHub Action options
+        with:
+          # 👇 Chromatic projectToken, refer to the manage page to obtain it.
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
